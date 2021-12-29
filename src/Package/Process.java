@@ -1,32 +1,27 @@
 package Package;
 
-import java.util.Comparator;
+        import java.util.Comparator;
 
 public class Process {
     public String name;
-    public int arrivalTime,burstTime,priority,
-            startTime, endTime, waitingTime,
-            turnaroundTime, quantum, AGAT_Factor;
-// default constructor
-    Process() {
-        name = "";
-        arrivalTime=0;
-        burstTime = 0;
-        priority = 0;
-        endTime = 0;
-        AGAT_Factor = 0;
-        startTime = 0;
-        waitingTime = 0;
-        quantum = 0;
-        turnaroundTime = 0;
-    }
-
-// for AGAT Scheduler
+    public boolean dead=false;
+    public int arrivalTime;
+    public int burstTime;
+    public int remainingBurstTime;
+    public int priority;
+    public int startTime;
+    public int endTime;
+    public int waitingTime;
+    public int turnaroundTime;
+    public int quantum;
+    public int AGAT_Factor;
+    // for AGAT Scheduler
     public Process(String name, int arrivalTime, int burstTime,
                    int priority,int quantum) {
         this.name = name;
         this.arrivalTime=arrivalTime;
         this.burstTime = burstTime;
+        this.remainingBurstTime=burstTime;
         this.priority = priority;
         this.quantum = quantum;
         //calculate AGAT factor
@@ -45,7 +40,7 @@ public class Process {
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
     }
-// sort processes by arrival time
+    // sort processes by arrival time
     public static class ArrivalTimeComparator implements Comparator<Process> {
 
         // Function to compare
@@ -53,13 +48,32 @@ public class Process {
             return Integer.compare(p1.arrivalTime, p2.arrivalTime);
         }
     }
-    //print process data after finishing its processing
+    public static class BurstTimeComparator implements Comparator<Process> {
+
+        // Function to compare
+        public int compare(Process p1, Process p2) {
+            return Integer.compare(p1.burstTime, p2.burstTime);
+        }
+    }
+    public void execute(){
+        // calculate TurnAroundTime,...
+        System.out.println(toString());
+    }
     @Override
     public String toString()
     {
-        return name;
+        String output=name+"\t"+arrivalTime+"\t"+burstTime;
+        return output;
         //print rest info of process
+    }
+    public static class RemainingBurstComparator implements Comparator<Process> {
+
+        // Function to compare
+        public int compare(Process p1, Process p2) {
+            return Integer.compare(p1.remainingBurstTime, p2.remainingBurstTime);
+        }
     }
 
 }
+
 
