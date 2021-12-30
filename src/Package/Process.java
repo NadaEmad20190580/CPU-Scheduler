@@ -14,6 +14,7 @@ public class Process {
     public int waitingTime;
     public int turnaroundTime;
     public int quantum;
+    public int remainingQuantum;
     public int AGAT_Factor;
     // for AGAT Scheduler
     public Process(String name, int arrivalTime, int burstTime,
@@ -24,6 +25,8 @@ public class Process {
         this.remainingBurstTime=burstTime;
         this.priority = priority;
         this.quantum = quantum;
+        this.remainingQuantum = quantum;
+
         //calculate AGAT factor
     }
     // for Priority Scheduler
@@ -39,6 +42,13 @@ public class Process {
         this.name = name;
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
+    }
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (!(obj instanceof Process)) return false;
+        Process o = (Process) obj;
+        return o.name==this.name;
     }
     // sort processes by arrival time
     public static class ArrivalTimeComparator implements Comparator<Process> {
@@ -71,6 +81,13 @@ public class Process {
         // Function to compare
         public int compare(Process p1, Process p2) {
             return Integer.compare(p1.remainingBurstTime, p2.remainingBurstTime);
+        }
+    }
+    public static class AGATFactorComparator implements Comparator<Process> {
+
+        // Function to compare
+        public int compare(Process p1, Process p2) {
+            return Integer.compare(p1.AGAT_Factor, p2.AGAT_Factor);
         }
     }
 
