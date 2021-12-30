@@ -1,7 +1,8 @@
-package cpu;
+package Package;
+
 
 import java.util.ArrayList;
-
+import java.util.Scanner;
 
 class SRTF{
 	 static ArrayList<Process> allProcesses = new ArrayList<Process>();
@@ -91,6 +92,37 @@ public static void SRTFScheduling() {
 	    System.out.println("Average waiting time is: "+ (float)(avgWaitingTime/n));
 	   
 	}
+
+public static void main (String[] args) {
+	SRTF.allProcesses = new ArrayList<Process>();
+	SRTF sjf = new SRTF();
+ int numOfPros;
+int arrivalTime;
+ int burstTime;
+ String name;
+ int context;
+ 
+ Scanner scan = new Scanner(System.in);
+ System.out.println("Enter the number of processes:   ");
+ numOfPros = scan.nextInt();
+ 
+ for (int i=0; i<numOfPros; ++i) {
+	 System.out.println("Enter the process name, arrival time and burst time:  ");
+	 name = scan.next();
+	 arrivalTime = scan.nextInt(); 
+	 burstTime = scan.nextInt();
+	 
+     
+	 SRTF.allProcesses.add(new Process(name, arrivalTime, burstTime));
+
+ }
+ System.out.println("Enter context switching: ");
+ context = scan.nextInt();
+ sjf.setContext(context);
+ SRTF.SRTFScheduling();
+ scan.close();
+ 
+}
 
 
 }
