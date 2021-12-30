@@ -16,6 +16,7 @@ public class Process {
     public int quantum;
     public int remainingQuantum;
     public int AGAT_Factor;
+    boolean isCompleted;
     // for AGAT Scheduler
     public Process(String name, int arrivalTime, int burstTime,
                    int priority,int quantum) {
